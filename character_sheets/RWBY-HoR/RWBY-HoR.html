@@ -1,13 +1,74 @@
+<!-- WORKERS -->
+<script type="text/worker">
+    /* === FUNCTIONS === */
+
+    var modchange = function(attr) {
+        var fields = [attr]
+        getAttrs(fields, (values) => {
+            setAttrs(calc_ability_mod(attr, values),{silent: true});
+        });
+    };
+    var calc_ability_mod = function(attr, values) {
+        var update = {};
+        var mod = ( parseInt(values[attr]) - 10);
+        update[attr + "_mod"] = mod;
+        return update;
+    };
+
+    /* === EVENTS === */
+
+    on("change:soul", function() {
+        modchange("soul");
+    });
+
+    on("change:instinct", () => {
+        modchange("instinct");
+    });
+
+    on("change:toughness", () => {
+        modchange("toughness");
+    });
+
+    on("change:dexterity", () => {
+        modchange("dexterity");
+    });
+
+    on("change:knowledge", () => {
+        modchange("knowledge");
+    });
+
+    on("change:toughness_mod", function() {
+
+    });
+
+</script>
+
+<!-- SHEET -->
 <div class="sheet-divTable">
     <div class="sheet-divTableBody">
         <div class="sheet-divTableRow">
-            <div class="sheet-divTableCell">Name</div>
+            <div class="sheet-divTableCell" style="width:50px;" >Name</div>
             <div class="sheet-divTableCell">
-                <input type="text" name="attr_name"  />
+                <input type="text" name="attr_name" style="min-width:200px; width:100%;" />
             </div>
-            <div class="sheet-divTableCell">Motivation</div>
+            <div class="sheet-divTableCell" style="width:60px;" >Motivation</div>
             <div class="sheet-divTableCell">
-                <input type="text" name="attr_motivation"  />
+                <input type="text" name="attr_motivation" style="min-width:400px; width:100%;" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sheet-divTable">
+    <div class="sheet-divTableBody">
+        <div class="sheet-divTableRow">
+            <div class="sheet-divTableCell" style="width:100px;" >Team Name</div>
+            <div class="sheet-divTableCell">
+                <input type="text" name="attr_teamname" style="min-width:200px; width:100%;" />
+            </div>
+            <div class="sheet-divTableCell" style="width:100px;" >Team Role</div>
+            <div class="sheet-divTableCell">
+                <input type="text" name="attr_teamrole" style="min-width:200px; width:100%;" />
             </div>
         </div>
     </div>
@@ -17,26 +78,94 @@
 
 <div class="sheet-divTable">
     <div class="sheet-divTableBody">
+        <div class="sheet-divTableRow" align="center">
+            <div class="sheet-divTableCell">
+                <button type="roll" name="roll_ability" value="/r ?{Advantage/Disadvantage|Normal, 3d6|Advantage, 4d6kh3|Disadvantage, 4d6kl3}+?{Attribute Bonus|None, 0|Soul, @{soul_mod}|Instinct, @{instinct_mod}|Toughness, @{toughness_mod}|Dexterity, @{dexterity_mod}|Knowledge, @{knowledge_mod}}+?{Skill bonus|0}">Ability Roll</button>
+            </div>
+            <div class="sheet-divTableCell">
+                <button type="roll" name="roll_initiative" value="/me is added to the initiative tracker. [[ @{speed} &{tracker} ]]">Initiative</button><br> (Select token first)
+            </div>
+            <div class="sheet-divTableCell">
+                <button type="roll" name="roll_auraregen" value="/me spends one soul point to regain [[ 1d6+@{soul_mod} ]] Aura">Aura Regen</button><br> (Costs 1 Soul Point)
+            </div>
+            <div class="sheet-divTableCell">Placeholder</div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="sheet-divTable">
+    <div class="sheet-divTableBody">
+        <div class="sheet-divTableRow">
+            <div class="sheet-divTableCell">Attribute</div>
+            <div class="sheet-divTableCell">Value</div>
+            <div class="sheet-divTableCell">Bonus</div>
+            <div class="sheet-divTableCell">Roll</div>
+        </div>
         <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">Soul</div>
             <div class="sheet-divTableCell">
-                <input type="number" name="attr_soul" value="0"  />
+                <input type="number" name="attr_soul" value="10"  />
             </div>
+            <div class="sheet-divTableCell">
+                <input type="hidden" name="attr_soul_mod" value="0" />
+                <input type="number" name="attr_soul_mod2" value="@{soul_mod}" disabled="true"/>
+            </div>
+            <div class="sheet-divTableCell">
+                <button type="roll" name="roll_abilitysoul" value="/r ?{Advantage/Disadvantage|Normal, 3d6|Advantage, 4d6kh3|Disadvantage, 4d6kl3}+ @{soul_mod} +?{Skill bonus|0}"></button>
+            </div>
+        </div>
+        <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">Instinct</div>
             <div class="sheet-divTableCell">
-                <input type="number" name="attr_instinct" value="0"  />
+                <input type="number" name="attr_instinct" value="10"  />
             </div>
+            <div class="sheet-divTableCell">
+                <input type="hidden" name="attr_instinct_mod" value="0" />
+                <input type="number" name="attr_instinct_mod2" value="@{instinct_mod}" disabled="true"/>
+            </div>
+            <div class="sheet-divTableCell">
+                <button type="roll" name="roll_abilityinstinct" value="/r ?{Advantage/Disadvantage|Normal, 3d6|Advantage, 4d6kh3|Disadvantage, 4d6kl3}+ @{instinct_mod} +?{Skill bonus|0}"></button>
+            </div>
+        </div>
+        <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">Toughness</div>
             <div class="sheet-divTableCell">
-                <input type="number" name="attr_toughness" value="0"  />
+                <input type="number" name="attr_toughness" value="10"  />
             </div>
+            <div class="sheet-divTableCell">
+                <input type="hidden" name="attr_toughness_mod" value="0" />
+                <input type="number" name="attr_toughness_mod2" value="@{toughness_mod}" disabled="true"/>
+            </div>
+            <div class="sheet-divTableCell">
+                <button type="roll" name="roll_abilitytoughness" value="/r ?{Advantage/Disadvantage|Normal, 3d6|Advantage, 4d6kh3|Disadvantage, 4d6kl3}+ @{toughness_mod} +?{Skill bonus|0}"></button>
+            </div>
+        </div>
+        <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">Dexterity</div>
             <div class="sheet-divTableCell">
-                <input type="number" name="attr_dexterity" value="0"  />
+                <input type="number" name="attr_dexterity" value="10"  />
             </div>
+            <div class="sheet-divTableCell">
+                <input type="hidden" name="attr_dexterity_mod" value="0" />
+                <input type="number" name="attr_dexterity_mod2" value="@{dexterity_mod}" disabled="true"/>
+            </div>
+            <div class="sheet-divTableCell">
+                <button type="roll" name="roll_abilitydexterity" value="/r ?{Advantage/Disadvantage|Normal, 3d6|Advantage, 4d6kh3|Disadvantage, 4d6kl3}+ @{dexterity_mod} +?{Skill bonus|0}"></button>
+            </div>
+        </div>
+        <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">Knowledge</div>
             <div class="sheet-divTableCell">
-                <input type="number" name="attr_knowledge" value="0"  />
+                <input type="number" name="attr_knowledge" value="10"  />
+            </div>
+            <div class="sheet-divTableCell">
+                <input type="hidden" name="attr_knowledge_mod" value="0" />
+                <input type="number" name="attr_knowledge_mod2" value="@{knowledge_mod}" disabled="true"/>
+            </div>
+            <div class="sheet-divTableCell">
+                <button type="roll" name="roll_abilityknowledge" value="/r ?{Advantage/Disadvantage|Normal, 3d6|Advantage, 4d6kh3|Disadvantage, 4d6kl3}+ @{knowledge_mod} +?{Skill bonus|0}"></button>
             </div>
         </div>
     </div>
@@ -48,19 +177,19 @@
     <div class="sheet-divTableRow">
         <div class="sheet-divTableCell">Aura</div>
         <div class="sheet-divTableCell">
-            <input type="number" name="attr_aura" value="0"  />
+            <input type="number" name="attr_aura" value="10"  />
             /
-            <input type="number" name="attr_aura_max" value="0"  />
+            <input type="number" name="attr_aura_max" value="10"  />
         </div>
         <div class="sheet-divTableCell">Soul Points</div>
         <div class="sheet-divTableCell">
             <input type="number" name="attr_soulpoints" value="0"  />
             /
-            <input type="number" disabled="true" value="@{soul}" name="attr_soulpoints_max" />
+            <input type="number" disabled="true" name="attr_soulpoints_max" value="@{soul}"/>
         </div>
         <div class="sheet-divTableCell">Speed</div>
         <div class="sheet-divTableCell">
-            <input type="number" name="attr_speed" value="0"  />
+            <input type="number" name="attr_speed" value="1"  />
         </div>
         <div class="sheet-divTableCell">XP</div>
         <div class="sheet-divTableCell">
@@ -71,7 +200,7 @@
         <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">Resolve</div>
             <div class="sheet-divTableCell">
-                <input type="number" name="attr_resolve" value="0"  />
+                <input type="number" disabled="true" name="attr_resolve" value="5+@{toughness_mod}" />
             </div>
             <div class="sheet-divTableCell">Dodge Roll Bonus</div>
             <div class="sheet-divTableCell">
@@ -110,7 +239,7 @@
                 <textarea name="attr_weapontype" ></textarea>
             </div>
             <div class="sheet-divTableCell">
-                <textarea name="attr_weaponmod" ></textarea>
+                <textarea name="attr_weapon_mod" ></textarea>
             </div>
         </div>
     </div>
@@ -142,23 +271,6 @@
             </div>
             <div class="sheet-divTableCell">
                 <textarea name="attr_skill" ></textarea>
-            </div>
-        </div>
-    </div>
-</div>
-
-<br>
-
-<div class="sheet-divTable">
-    <div class="sheet-divTableBody">
-        <div class="sheet-divTableRow">
-            <div class="sheet-divTableCell">Team Name</div>
-            <div class="sheet-divTableCell">
-                <input type="text" name="attr_teamname"  />
-            </div>
-            <div class="sheet-divTableCell">Team Role</div>
-            <div class="sheet-divTableCell">
-                <input type="text" name="attr_teamrole"  />
             </div>
         </div>
     </div>
