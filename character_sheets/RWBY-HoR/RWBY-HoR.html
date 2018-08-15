@@ -37,10 +37,6 @@
         modchange("knowledge");
     });
 
-    on("change:toughness_mod", function() {
-
-    });
-
 </script>
 
 <!-- SHEET -->
@@ -183,7 +179,7 @@
         </div>
         <div class="sheet-divTableCell">Soul Points</div>
         <div class="sheet-divTableCell">
-            <input type="number" name="attr_soulpoints" value="0"  />
+            <input type="number" name="attr_soulpoints" value="10"  />
             /
             <input type="number" disabled="true" name="attr_soulpoints_max" value="@{soul}"/>
         </div>
@@ -208,7 +204,7 @@
             </div>
             <div class="sheet-divTableCell">Resistance</div>
             <div class="sheet-divTableCell">
-                <input type="number" name="attr_resistance" value="0"  />
+                <input type="number" name="attr_resistance" value="@{toughness_mod}"  />
             </div>
         </div>
      </div>
@@ -219,27 +215,88 @@
 <div class="sheet-divTable">
     <div class="sheet-divTableBody">
         <div class="sheet-divTableRow">
-            <div class="sheet-divTableCell"><b>Semblance</b></div>
             <div class="sheet-divTableCell"><b>Injuries</b></div>
         </div>
         <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">
-                <textarea name="attr_semblance" ></textarea>
+                <fieldset class="repeating_injuries">
+                    Injury Name: <input type="text" name="attr_injuryname" />
+                    Description: <input type="text" name="attr_injurydesc" />
+                </fieldset>
             </div>
-            <div class="sheet-divTableCell">
-                <textarea name="attr_injuries" ></textarea>
             </div>
         </div>
+</div>
+
+<div class="sheet-divTable">
+    <div class="sheet-divTableBody">
+        <div class="sheet-divTableRow">
+            <div class="sheet-divTableCell"><b>Semblance</b></div>
+        </div>
+        <div class="sheet-divTableRow">
+            <div class="sheet-divTableCell">
+                <textarea name="attr_semblance" ></textarea>
+                <br>
+                Semblance Augmentation
+                <fieldset class="repeating_semblanceaugmentations">
+                    Augmentation Name: <input type="text" name="attr_semblanceaugmentationname" />
+                    Description: <input type="text" name="attr_semblanceaugemtnationdesc" />
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sheet-divTable">
+    <div class="sheet-divTableBody">
         <div class="sheet-divTableRow">
             <div class="sheet-divTableCell"><b>Weapon Types</b></div>
-            <div class="sheet-divTableCell"><b>Weapon Modifications</b></div>
         </div>
         <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">
-                <textarea name="attr_weapontype" ></textarea>
-            </div>
-            <div class="sheet-divTableCell">
-                <textarea name="attr_weapon_mod" ></textarea>
+                <fieldset class="repeating_weapontype">
+                    Weapon Name: <input type="text" name="attr_weapontypename" />
+                    <br>
+                    Damage:
+                    <select name="attr_weapontypestage" style="width:6em;">
+                        <option value="1">Stage 1</option>
+                        <option value="2">Stage 2</option>
+                        <option value="3">Stage 3</option>
+                        <option value="4">Stage 4</option>
+                    </select>
+
+                    Weight:
+                    <select name="attr_weapontypeweight" style="width:5em;">
+                        <option value="Light">Light</option>
+                        <option value="Heavy">Heavy</option>
+                    </select>
+
+                    Damage type:
+                    <select name="attr_weapontypedtype" style="width:6em;">
+                        <option value="Edged">Edged</option>
+                        <option value="Blunt">Blunt</option>
+                        <option value="Precise">Precise</option>
+                    </select>
+
+                    Length:
+                    <select name="attr_weapontypelength" style="width:6em;">
+                        <option value="Long">Long</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Short">Short</option>
+                        <option value="Short">Ranged</option>
+                    </select>
+                    <br>
+                    Special Properties: <input type="text" name="attr_weapontypeproperties" />
+                    <br>
+                    Description: <input type="text" name="attr_weapontypedesc" />
+                    <br>
+                    Weapon Modifications:
+                    <fieldset class="repeating_weaponmod">
+                        Weapon Modification Name: <input type="text" name="attr_weaponmodname" />
+                        Description: <input type="text" name="attr_weaponmoddesc" />
+                    </fieldset>
+                    <hr>
+                </fieldset>
             </div>
         </div>
     </div>
@@ -267,10 +324,18 @@
         </div>
         <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">
-                <textarea name="attr_action" ></textarea>
+                <fieldset class="repeating_action">
+                    Action/Manoeuver Name: <input type="text" name="attr_actionname" /> <br>
+                    Description: <input type="text" name="attr_actiondesc" />
+                    <hr>
+                </fieldset>
             </div>
             <div class="sheet-divTableCell">
-                <textarea name="attr_skill" ></textarea>
+                <fieldset class="repeating_skills">
+                    Skill Name: <input type="text" name="attr_skillname" /> <br>
+                    Description: <input type="text" name="attr_skilldesc" />
+                    <hr>
+                </fieldset>
             </div>
         </div>
     </div>
@@ -316,7 +381,11 @@
         </div>
         <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">
-                <textarea name="attr_equip" ></textarea>
+                <fieldset class="repeating_equip">
+                    Item Name: <input type="text" name="attr_equipname" />
+                    Description: <input type="text" name="attr_equipdesc" />
+                </fieldset>
+            </div>
             </div>
         </div>
         <div class="sheet-divTableRow">
