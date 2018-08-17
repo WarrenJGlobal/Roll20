@@ -218,9 +218,9 @@
                         <div class="sheet-divTableRow">
                             <div class="sheet-divTableCell">Soul Points</div>
                             <div class="sheet-divTableCell">
-                                <input type="number" name="attr_soulpoints" value="10"  />
+                                <input type="number" name="attr_soulpoints" value="1"  />
                                 /
-                                <input type="number" name="attr_soulpoints_max" value="10"/>
+                                <input type="number" name="attr_soulpoints_max" value="1"/>
                             </div>
                         </div>
                         <div class="sheet-divTableRow">
@@ -340,6 +340,8 @@
                         <option value="Short">Ranged</option>
                     </select>
                     Special Properties: <input type="text" name="attr_weapontypeproperties" />
+                    Accuracy: <input type="number" name="attr_weapontypeaccuracy" value="0" />
+                    <button type="roll" name="roll_accuracy" value="/r ?{Advantage/Disadvantage|Normal, 3d6|Advantage, 4d6kh3|Disadvantage, 4d6kl3}+ @{dexterity_mod} + @{weapontypeaccuracy} +?{Skill bonus|0}"></button>
                     <br>
                     Description: <input type="text" name="attr_weapontypedesc" />
                     <br>
@@ -359,13 +361,10 @@
 <br>
 
 <!-- DUST TABLE -->
-<!-- ACTION AND MANOEUVER TABLE -->
-<!-- SKILL TABLE -->
 <div class="sheet-divTable">
     <div class="sheet-divTableBody">
         <div class="sheet-divTableRow" style="font-weight: bold;">
             <div class="sheet-divTableCell">Dust Stockpile</div>
-            <div class="sheet-divTableCell">Dust Types and Effects</div>
         </div>
         <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">
@@ -374,11 +373,27 @@
                     Count: <input type="number" name="attr_dustqty" /> / <input type="number" name="attr_dustqty_max" />
                 </fieldset>
             </div>
+        </div>
+
+        <div class="sheet-divTableRow" style="font-weight: bold;">
+            <div class="sheet-divTableCell">Dust Types and Effects</div>
+        </div>
+        <div class="sheet-divTableRow">
             <div class="sheet-divTableCell">
                 <textarea name="attr_dusttype" ></textarea>
             </div>
         </div>
-        <div class="sheet-divTableRow">
+
+    </div>
+</div>
+
+<br>
+
+<!-- ACTION AND MANOEUVER TABLE -->
+<!-- SKILL TABLE -->
+<div class="sheet-divTable">
+    <div class="sheet-divTableBody">
+        <div class="sheet-divTableRow" style="font-weight: bold;">
             <div class="sheet-divTableCell"><b>Actions and Manoeuvers</b></div>
             <div class="sheet-divTableCell"><b>Skills</b></div>
         </div>
@@ -452,6 +467,13 @@
             </div>
         </div>
     </div>
+</div>
+
+<br>
+
+<!-- MISC TABLE -->
+<div class="sheet-divTable">
+    <div class="sheet-divTableBody">
         <div class="sheet-divTableRow">
             <div class="sheet-divTableCell"><b>Miscellaneous</b></div>
         </div>
