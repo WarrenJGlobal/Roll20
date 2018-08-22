@@ -339,12 +339,25 @@
                         <option value="Short">Short</option>
                         <option value="Short">Ranged</option>
                     </select>
+                    Weapon Durability:
+                    <select name="attr_weapontypedurabilitystage" style="width:6em;">
+                        <option value="0">Stage 5</option>
+                        <option value="1">Stage 4</option>
+                        <option value="2">Stage 3</option>
+                        <option value="3">Stage 2</option>
+                        <option value="5">Stage 1</option>
+                        <option value="1000">Stage 0</option>
+                    </select>
                     Special Properties: <input type="text" name="attr_weapontypeproperties" />
                     Accuracy: <input type="number" name="attr_weapontypeaccuracy" value="0" />
-                    <button type="roll" name="roll_accuracy" value="/r ?{Advantage/Disadvantage|Normal, 3d6|Advantage, 4d6kh3|Disadvantage, 4d6kl3}+ @{dexterity_mod} + @{weapontypeaccuracy} +?{Skill bonus|0}"></button>
+                    <button type="roll" name="roll_accuracy" value="/r ?{Advantage/Disadvantage|Normal, 3d6|Advantage, 4d6kh3|Disadvantage, 4d6kl3}+ @{dexterity_mod} + @{weapontypeaccuracy} +?{Skill bonus|0} -@{weapontypedurabilitystage}"></button>
                     <br>
-                    Description:
-                    <textarea name="attr_weapontypedesc" style="width: 100%;height: 3em;" ></textarea>
+
+                    <input type="checkbox" class="sheet-arrow" ame='attr_weapontypehide'/><span></span>
+                    Description
+                    <div class ="sheet-bodysection">
+                        <textarea name="attr_weapontypedesc" style="width: 100%;height: 3em;" ></textarea>
+                    </div>
 
                     <br>
                     <b>Weapon Modifications</b>
@@ -399,16 +412,24 @@
             <div class="sheet-divTableCell">
                 <fieldset class="repeating_action">
                     Action/Manoeuver Name: <input type="text" name="attr_actionname" /> <br>
-                    <textarea name="attr_actiondesc" style="width: 100%;height: 3em;"></textarea>
+                    <input type="checkbox" class="sheet-arrow" ame='attr_actionhide'/><span></span>
+                    Description
+                    <div class ="sheet-bodysection">
+                        <textarea name="attr_actiondesc" style="width: 100%;height: 3em;"></textarea>
+                    </div>
 
                     <hr>
                 </fieldset>
             </div>
             <div class="sheet-divTableCell">
-                Skill Name / Description
                 <fieldset class="repeating_skills">
                     Skill Name: <input type="text" name="attr_skillname" /> <br>
-                    <textarea name="attr_skilldesc" style="width: 100%;height: 3em;"></textarea>
+                    <input type="checkbox" class="sheet-arrow" ame='attr_skillhide'/><span></span>
+                    Description
+                    <div class ="sheet-bodysection">
+                        <textarea name="attr_skilldesc" style="width: 100%;height: 3em;"></textarea>
+                    </div>
+
                     <hr>
                 </fieldset>
             </div>
