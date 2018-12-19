@@ -1,0 +1,29 @@
+{
+  "name": "PTUtokenAction",
+  "script": "PTUtokenAction.js",
+  "version": "1.0.0",
+  "description": "PTUtokenAction Creates Abilities for characters for the characters Moves then sets them as token actions. The syntax for the command is !PTUta --[move|mtable|speed|DELETE]",
+  "authors": "Warren J.",
+  "roll20userid": "596590",
+  "useroptions": [
+    {
+      "name": "showAsTokenAction",
+      "type": "checkbox",
+      "description": "When this option is true any abilities created will be set as token actions",
+      "value": "True",
+	  "default": "True"
+    }
+  ],
+  "dependencies": [],
+  "modifies": {
+    "attribute.characterid": "read",
+    "attribute.current": "read",
+    "attribute.id": "read",
+    "attribute.max": "read",
+    "attribute.name": "read",
+    "attribute.type": "read",
+    "character.name": "read",
+	"ability": "read,write"
+  },
+  "conflicts": []
+}
